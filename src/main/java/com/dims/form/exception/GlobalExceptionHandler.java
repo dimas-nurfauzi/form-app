@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
             errors.computeIfAbsent(field, k -> new ArrayList<>())
                     .add(error.getDefaultMessage());
         });
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT)
                 .body(Map.of("message", "Invalid field", "errors", errors));
     }
 
@@ -50,20 +50,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateResourceException.class)
     public ResponseEntity<Map<String, String>> handleDuplicate(DuplicateResourceException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT)
                 .body(Map.of("message", ex.getMessage()));
     }
 
     @ExceptionHandler(AlreadySubmittedException.class)
     public ResponseEntity<Map<String, String>> handleAlreadySubmitted(AlreadySubmittedException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT)
                 .body(Map.of("message", ex.getMessage()));
     }
 
-    // ← tambah ini
     @ExceptionHandler(InvalidFieldException.class)
     public ResponseEntity<Map<String, String>> handleInvalidField(InvalidFieldException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT)
                 .body(Map.of("message", ex.getMessage()));
     }
 }
